@@ -1,0 +1,19 @@
+services:
+  ur_sim:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ur-sim:humble
+    container_name: ur_simulation_gazebo
+    network_mode: host
+    ipc: host
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - ROS_DOMAIN_ID=${ROS_DOMAIN_ID:-0}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ./:/opt/ur_ws/src/Universal_Robots_ROS2_Gazebo_Simulation:rw
+    stdin_open: true
+    tty: true
+    command: bash -lc "source /opt/ur_ws/install/setup.bash && ros2 launch ur_simulation_gazebo ur_sim_control.launch.py"

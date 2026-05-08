@@ -76,3 +76,25 @@ Example using MoveIt with simulated robot:
 ```
 ros2 launch ur_simulation_gazebo ur_sim_moveit.launch.py
 ```
+
+## Run with Docker
+
+Build image:
+```
+docker compose build
+```
+
+Allow GUI forwarding from Docker to host X server:
+```
+xhost +local:docker
+```
+
+Run Gazebo simulation in container:
+```
+docker compose up
+```
+
+Open interactive shell in container:
+```
+docker compose run --rm ur_sim bash
+```
